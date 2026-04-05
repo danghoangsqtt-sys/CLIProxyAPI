@@ -35,11 +35,15 @@ remote-management:
 # Authentication directory (supports ~ for home directory)
 auth-dir: "~/.cli-proxy-api"
 
-# API keys for authentication
+# API keys for authentication (used as internal proxy access keys)
+# For BYOA Google OAuth flow, any ya29.* token is accepted automatically
 api-keys:
-  - "your-api-key-1"
-  - "your-api-key-2"
-  - "your-api-key-3"
+  - "aura-internal-bypass"
+
+# Gemini API - BYOA mode: the ya29.* token from the user is forwarded directly
+gemini-api-key:
+  - api-key: "placeholder-not-used"
+    base-url: "https://generativelanguage.googleapis.com"
 
 # Enable debug logging
 debug: false

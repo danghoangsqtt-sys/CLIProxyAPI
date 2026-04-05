@@ -89,6 +89,18 @@ func (p *provider) Authenticate(_ context.Context, r *http.Request) (*sdkaccess.
 		if candidate.value == "" {
 			continue
 		}
+
+		// Bypass mechanism for Google OAuth access tokens (BYOA)
+		if strings.HasPrefix(candidate.value, "ya29.") {
+			return &sdkaccess.Result{
+				Provider:  "google_oauth",
+				Principal: candidate.value, // This ya29. token will be forwarded to Gemini
+				Metadata: map[string]string{
+					"source": candidate.source,
+				},
+			}, nil
+		}
+
 		if _, ok := p.keys[candidate.value]; ok {
 			return &sdkaccess.Result{
 				Provider:  p.Identifier(),
