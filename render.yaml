@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: cli-proxy-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: DEPLOY
+        value: cloud
+      - key: PORT
+        value: "8317"
+    healthCheckPath: /v1/models
